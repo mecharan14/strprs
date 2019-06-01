@@ -14,10 +14,10 @@ Download this library by clicking clone or download on top.
 ### Usage
 
 For Normal version
-> "<script src='strprs.js'></script>"
+> <script src='strprs.js'></script>
 
 For Minified version
-> "<script src='strprs.min.js'></script>"
+> <script src='strprs.min.js'></script>
 
 ### What is it?
 
@@ -33,7 +33,22 @@ lets use strprs for this.
 
 ```javascript
 	let person = strprs('Hi, my name is %name% , and I am %age%', Hi, my name is Charan , and I am 18);
-	console.log(persion)
+	console.log(persion) /* Output : { name: 'Charan', age: '18' } */
 ```
 
-> Output : {name: 'Charan', age: '18'}
+***Data is returned as object***
+
+You can then use the data however you like
+
+```javascript
+	let target = "I'm feeling %express% and I am in %type% place. I hope it will be %caption%.";
+	let dest = "I'm feeling lucky and I am in cool place. I hope it will be memorable.";
+	let string = strprs(target,dest);
+	console.log(string.express); // lucky
+	console.log(string.type); // cool
+	console.log(string.caption); // memorable
+```
+
+Thats it.
+
+Thank you for visting.
