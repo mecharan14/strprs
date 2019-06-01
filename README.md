@@ -31,6 +31,8 @@ Now you want to extract 'Charan' and '18' without knowing the value
 
 lets use strprs for this.
 
+You need to write a template which is identical to the target string and enclose paramaters with % as shown below
+
 ```javascript
 	let person = strprs('Hi, my name is %name% , and I am %age%', Hi, my name is Charan , and I am 18);
 	console.log(persion) /* Output : { name: 'Charan', age: '18' } */
