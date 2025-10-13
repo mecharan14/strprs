@@ -1,0 +1,26 @@
+{
+  "name": "strprs",
+  "version": "1.0.0",
+  "description": "Tiny template-based string parser (placeholder extraction with %name% tokens)",
+  "type": "module",
+  "main": "strprs.js",
+  "files": [
+    "strprs.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["string","parser","template","placeholder","strprs","extract","esm"],
+  "author": "mecharan14",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mecharan14/strprs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mecharan14/strprs/issues"
+  },
+  "homepage": "https://github.com/mecharan14/strprs#readme"
+}

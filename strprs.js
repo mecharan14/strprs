@@ -1,34 +1,56 @@
-const strprs = (target, dest) =>{
-    let arr = target.split('%');
-    let arr2 = [];
-    arr.forEach(alt =>{     /* Searches for template and deletes from the string */
-        if(dest.indexOf(alt) != -1){
-            dest = dest.replace(alt, ' ');
-        }else{
-            arr2.push(alt); /* Adding parameters to an array */
-        }
-    })
-    dest = dest.split(' ');  /* Splits the remaining string into an array */
-    let count = [];
-    let results = [];
-    dest.forEach((v,i)=>{
-        if(v == '' || v == ' '){   /* Finding the indeces of empty elements or spaces */
-            count.push(i);
-        }
-    })
 
-    dest.forEach((v,i)=>{
-        if(count.indexOf(i) == -1){   /* Adding only real values to an array leaving spaces and blanks */
-            results.push(v);
-        }
-    })
+/**
+ * Extracts named values from a string using a template with %param% placeholders.
+ * @param {string} template - The template string with %param% placeholders.
+ * @param {string} input - The input string to extract values from.
+ * @returns {Object} Object mapping param names to extracted values.
+ * @example
+ * strprs('Hi, my name is %name% , and I am %age%', 'Hi, my name is Charan , and I am 18');
+ * // { name: 'Charan', age: '18' }
+ */
+export function strprs(template, input) {
+    if (typeof template !== 'string' || typeof input !== 'string') {
+        throw new TypeError('Both template and input must be strings');
+    }
 
-    let object = {};
+    // Find all param names between % signs
+    const paramRegex = /%([^%]+)%/g;
+    const paramNames = [];
+    let match;
+    while ((match = paramRegex.exec(template)) !== null) {
+        paramNames.push(match[1]);
+    }
 
-    arr2.forEach((v,i)=>{
-        object[v] = results[i]         /* Transforming results to an object */
-    })
+    // Build a regex to extract values
+    // Escape template except for %param%
+    let regexStr = template.replace(/%([^%]+)%/g, '(.+?)')
+        .replace(/[.*+?^${}()|[\]\\]/g, '\$&') // escape regex chars
+        .replace(/\%([^%]+)\%/g, '(.+?)'); // restore capture groups
 
-    return object;                  /* returning final object */
+    // Remove double escaping for spaces and commas
+    regexStr = regexStr.replace(/\ /g, ' ');
+    regexStr = regexStr.replace(/\,/g, ',');
 
+    const valueRegex = new RegExp('^' + regexStr + '$');
+    const values = valueRegex.exec(input);
+    if (!values) {
+        // No match, return empty object
+        return {};
+    }
+
+    // values[0] is the full match, values[1..] are captures
+    const result = {};
+    paramNames.forEach((name, i) => {
+        result[name] = values[i + 1] || '';
+    });
+    return result;
+}
+
+// CommonJS export (Node) and attach to global for browsers
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = strprs;
+} else if (typeof window !== 'undefined') {
+    window.strprs = strprs;
+} else if (typeof globalThis !== 'undefined') {
+    globalThis.strprs = strprs;
 }

@@ -1,56 +1,70 @@
 # String Parser (strprs)
----
 
 A string parser for extracting data from a string by template paramaters.
 
 This is currently availble in Javascript.
 
----
+# strprs — modern template-based string parser
 
-### Download
+A tiny, modern JavaScript utility that extracts values from a string using a template with `%param%` placeholders.
 
-Download this library by clicking clone or download on top.
+## Install
 
-### Usage
+Clone this repo or add to your project:
 
-For Normal version
-> <script src='strprs.js'></script>
-
-For Minified version
-> <script src='strprs.min.js'></script>
-
-### What is it?
-
-if you want to parse some data from a string which you cannot do normally like,
-
-> Hi, my name is ___Charan___ , and I am ___18___
-
-Imagine it is a dynamic string from an api
-
-Now you want to extract 'Charan' and '18' without knowing the value
-
-lets use strprs for this.
-
-You need to write a template which is identical to the target string and enclose paramaters with % as shown below
-
-```javascript
-	let person = strprs('Hi, my name is %name% , and I am %age%', 'Hi, my name is Charan , and I am 18');
-	console.log(persion) /* Output : { name: 'Charan', age: '18' } */
+```sh
+git clone https://github.com/mecharan14/strprs.git
 ```
 
-***Data is returned as object***
+Or, after publishing to npm:
 
-You can then use the data however you like
-
-```javascript
-	let target = "I'm feeling %express% and I am in %type% place. I hope it will be %caption%.";
-	let dest = "I'm feeling lucky and I am in cool place. I hope it will be memorable.";
-	let string = strprs(target,dest);
-	console.log(string.express); // lucky
-	console.log(string.type); // cool
-	console.log(string.caption); // memorable
+```sh
+npm install strprs
 ```
 
-Thats it.
+## Usage (ES Modules)
 
-Thank you for visting.
+Import and use in your project:
+
+```js
+import { strprs } from 'strprs';
+
+
+const result = strprs('Hi, my name is %name% , and I am %age%', 'Hi, my name is Charan , and I am 18');
+console.log(result); // { name: 'Charan', age: '18' }
+```
+
+## What it does
+
+Given a template string with `%param%` placeholders, `strprs` returns an object mapping param names to the corresponding values found in the input string.
+
+**Example:**
+
+Template: `Hi, my name is %name% , and I am %age%`
+
+Input:   `Hi, my name is Charan , and I am 18`
+
+Result: `{ name: 'Charan', age: '18' }`
+
+## API
+
+```js
+strprs(template: string, input: string): Object
+```
+
+- Returns an object mapping param names to extracted values.
+- Throws if arguments are not strings.
+
+## Edge cases & limitations
+
+- The parser uses a simple regex and expects the template to match the input structure.
+- It does not handle repeated param names, optional segments, or values containing `%`.
+- For advanced parsing, consider a more robust solution (regex with named groups, etc).
+
+## Contributing
+
+Contributions are welcome! Please open an issue or PR for improvements, tests, or packaging.
+
+## License
+
+MIT — see `LICENSE` file for details.
