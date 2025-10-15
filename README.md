@@ -1,5 +1,8 @@
 # String Parser (strprs)
 
+![npm](https://img.shields.io/npm/v/strprs.svg)
+![npm](https://img.shields.io/npm/dm/strprs.svg)
+
 A string parser for extracting data from a string by template paramaters.
 
 This is currently availble in Javascript.
